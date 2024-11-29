@@ -6,11 +6,16 @@ public class Flashcard {
 	private String term;
 	private String definition;
 	
-	// constructor
+	// constructors
 	
 	public Flashcard(String term, String definition) {
 		this.term = term;
 		this.definition = definition;
+	}
+	
+	public Flashcard () {
+		term = "";
+		definition = "";
 	}
 
 	// getters
