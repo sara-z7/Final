@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FlashcardApp {
 
@@ -64,6 +65,33 @@ public class FlashcardApp {
 			 
 			 flashcards.set(j + 1, flashcards.get(i));
 		 }
+	}
+	
+	public void quiz (List<Flashcard> remainingCards, int i) {
+		if (remainingCards.size() == 0) {
+			System.out.println("Quiz complete!");
+			return;
+		}
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("_________ is " + remainingCards.get(i).getDefinition());
+		String answer = scan.nextLine();
+		
+		if (answer.equals(remainingCards.get(i).getTerm())) {
+			System.out.println("Correct!");
+			remainingCards.remove(i);
+			
+			if (remainingCards.size() == 0) {
+				System.out.println("Quiz complete!");
+				return;
+			}
+		} else {
+			System.out.println("Incorrect. The answer is: " + remainingCards.get(i).getTerm());
+		} 
+		
+		i = (int) (Math.random() * (remainingCards.size()));
+		quiz(remainingCards, i);
+		
 	}
 	
 	
