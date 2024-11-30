@@ -67,13 +67,12 @@ public class FlashcardApp {
 		 }
 	}
 	
-	public void quiz (List<Flashcard> remainingCards, int i) {
+	public void quiz (List<Flashcard> remainingCards, int i, Scanner scan) {
 		if (remainingCards.size() == 0) {
 			System.out.println("Quiz complete!");
 			return;
 		}
 		
-		Scanner scan = new Scanner(System.in);
 		System.out.println("_________ is " + remainingCards.get(i).getDefinition());
 		String answer = scan.nextLine();
 		
@@ -90,7 +89,7 @@ public class FlashcardApp {
 		} 
 		
 		i = (int) (Math.random() * (remainingCards.size()));
-		quiz(remainingCards, i);
+		quiz(remainingCards, i, scan);
 		
 	}
 	
