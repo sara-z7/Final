@@ -12,11 +12,6 @@ public class Flashcard {
 		this.term = term;
 		this.definition = definition;
 	}
-	
-	public Flashcard () {
-		term = "";
-		definition = "";
-	}
 
 	// getters
 	
