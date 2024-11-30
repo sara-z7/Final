@@ -33,13 +33,14 @@ public class FlashcardApp {
 	
 	// binary search 
 	public Flashcard search(String keyword) {
+		sort();
 		
 		int low = 0;
 		int high = flashcards.size() - 1;
-		int mid = flashcards.size() / 2;
 		
 		
 		while (low <= high) {
+			int mid = low + (high - low) / 2;
 			if (flashcards.get(mid).getTerm().contains(keyword)) {
 				return flashcards.get(mid);
 			} else if (flashcards.get(mid).getTerm().compareTo(keyword) < 0) {
@@ -49,7 +50,8 @@ public class FlashcardApp {
 			}
 		}
 		
-		return new Flashcard();
+		System.out.println("Flashcard not found!");
+		return null;
 	}
 	
 	// insertion sort (alphabetically)
@@ -60,6 +62,7 @@ public class FlashcardApp {
 			 int j = i - 1;
 			 while (j >= 0 && flashcards.get(j).getTerm().compareToIgnoreCase(flashcards.get(i).getTerm()) > 0) {
 				flashcards.set(j + 1, flashcards.get(j));
+				j--;
 			 }
 			 
 			 flashcards.set(j + 1, flashcards.get(i));
