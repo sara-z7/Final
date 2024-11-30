@@ -1,16 +1,15 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class FlashcardApp {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 	
 	List<Flashcard> flashcards = new ArrayList<>();
 	File file;
@@ -91,6 +90,57 @@ public class FlashcardApp {
 		i = (int) (Math.random() * (remainingCards.size()));
 		quiz(remainingCards, i, scan);
 		
+	}
+	
+	public void saveFlashcards(String file) {
+		List<String> lines = new ArrayList<>();
+		Path outputFile = Paths.get(file);
+		
+		for (int i = 0; i < flashcards.size(); i++) {
+			lines.add(flashcards.get(i).getTerm() + ": " + flashcards.get(i).getDefinition());
+		}
+		
+		try {
+			Files.write(outputFile, lines);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+					
+	}
+	
+	public List<Flashcard> importFlashcards (String fileName) {
+		
+		Path file = Paths.get(fileName);
+		ArrayList<String> lines = new ArrayList<String>(); // ArrayList that holds the lines from the file
+
+		if (Files.exists(file)) {
+								
+			try {
+				Scanner fileScanner = new Scanner(file);
+					
+				// add each line to the lines arrayList until there are no more lines
+				while (fileScanner.hasNextLine()) {
+					String line = fileScanner.nextLine();
+					lines.add(line);
+				}
+				fileScanner.close();
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		} else {
+			System.out.println("File not found. Please try again.\n");
+		}
+		
+		for (String line : lines) {
+			String[] parts = line.split(": ");
+			if (parts.length == 2) { // Ensure the line is properly formatted
+                flashcards.add(new Flashcard(parts[0].trim(), parts[1].trim()));
+            } else {
+                System.out.println("Skipping invalid line: " + line);
+            }			
+		}
+		
+		return flashcards;
 	}
 	
 	
