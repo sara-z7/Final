@@ -7,8 +7,19 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
+	
+	private Stage primaryStage;
+	private Scene menu;
+	private Scene flashcards;
+	
 	@Override
 	public void start(Stage primaryStage) {
+		
+		this.primaryStage = primaryStage;
+		
+		// initialize controllers and scenes
+		Menu menuController = new Menu(primaryStage);
+		FlashcardController flaschardController = new FlashcardController(primaryStage);
 		try {
 			BorderPane root = new BorderPane();
 			Scene scene = new Scene(root,400,400);
